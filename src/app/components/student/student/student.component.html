@@ -8,22 +8,22 @@
         <div class="col-md-6">
           <div class="mb-3 mt-3">
             <label for="firstname" class="form-label"><strong><span class="text-danger">*</span>First Name</strong></label>
-            <input type="text" class="form-control" id="firstname" name="firstname" />
+            <input type="text" [(ngModel)]="studentObj.firstName" class="form-control" id="firstname" name="firstname" />
           </div>
   
           <div class="mb-3 mt-3">
             <label for="email" class="form-label"><strong><span class="text-danger">*</span>Student Email</strong></label>
-            <input type="email" class="form-control" id="email" name="email" />
+            <input type="email" [(ngModel)]="studentObj.email" class="form-control" id="email" name="email" />
           </div>
   
           <div class="mb-3 mt-3">
             <label for="address" class="form-label"><strong>Address</strong></label>
-            <input type="text" class="form-control" id="address" name="address" />
+            <input type="text" [(ngModel)]="studentObj.address" class="form-control" id="address" name="address" />
           </div>
   
           <div class="mb-3 mt-3">
             <label for="institute" class="form-label"><strong><span class="text-danger">*</span>Institute</strong></label>
-            <select class="form-select" aria-label="Default select example">
+            <select [(ngModel)]="studentObj.institute" class="form-select" aria-label="Default select example">
               <option selected>Select Institute</option>
               <option value="1">One</option>
               <option value="2">Two</option>
@@ -33,23 +33,23 @@
   
           <div class="mb-3 mt-3">
             <label for="course" class="form-label"><strong><span class="text-danger">*</span>Course Title</strong></label>
-            <input type="text" class="form-control" id="course" name="course" />
+            <input type="text" [(ngModel)]="studentObj.courseTitle" class="form-control" id="course" name="course" />
           </div>
         </div>
           <div class="col-md-6">
           <div class="mb-3 mt-3">
             <label for="lastname" class="form-label"><strong><span class="text-danger">*</span>Last Name</strong></label>
-            <input type="text" class="form-control" id="lastname" name="lastname" />
+            <input type="text" [(ngModel)]="studentObj.lastName" class="form-control" id="lastname" name="lastname" />
           </div>
   
           <div class="mb-3 mt-3">
             <label for="phone" class="form-label"><strong><span class="text-danger">*</span>Phone</strong></label>
-            <input type="text" class="form-control" id="phone" name="phone" />
+            <input type="text" [(ngModel)]="studentObj.phone" class="form-control" id="phone" name="phone" />
           </div>
   
           <div class="mb-3 mt-3">
             <label for="country" class="form-label"><strong><span class="text-danger">*</span>Country</strong></label>
-            <select class="form-select" aria-label="Default select example">
+            <select [(ngModel)]="studentObj.country" class="form-select" aria-label="Default select example">
               <option selected>Select Country</option>
               <option value="1">One</option>
               <option value="2">Two</option>
@@ -59,7 +59,7 @@
   
           <div class="mb-3 mt-3">
             <label for="intake" class="form-label"><strong><span class="text-danger">*</span>Intake</strong></label>
-            <select class="form-select" aria-label="Default select example">
+            <select [(ngModel)]="studentObj.intake" class="form-select" aria-label="Default select example">
               <option selected>Select Intake</option>
               <option value="1">One</option>
               <option value="2">Two</option>
@@ -78,7 +78,7 @@
   
       <div class="row">
         <div class="col-12 text-center mt-1">
-          <button type="submit" class="btn btn-primary m-4">Submit</button>
+          <button type="submit" (click)="onSaveStudent()" class="btn btn-primary m-4">Submit</button>
           <button type="submit" class="btn btn-secondary m-4">Cancel</button>
         </div>
       </div>
