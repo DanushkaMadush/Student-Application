@@ -1,87 +1,138 @@
 <div class="row pt-5 text-primary">
-    <h2 class="text-center">Apply for a Student Licence</h2>
-  </div>
-  
-  <div class="container p-5 border rounded">
-    <form action="">
-      <div class="row">
-        <div class="col-md-6">
-          <div class="mb-3 mt-3">
-            <label for="firstname" class="form-label"><strong><span class="text-danger">*</span>First Name</strong></label>
-            <input type="text" [(ngModel)]="studentObj.firstName" class="form-control" id="firstname" name="firstname" />
-          </div>
-  
-          <div class="mb-3 mt-3">
-            <label for="email" class="form-label"><strong><span class="text-danger">*</span>Student Email</strong></label>
-            <input type="email" [(ngModel)]="studentObj.email" class="form-control" id="email" name="email" />
-          </div>
-  
-          <div class="mb-3 mt-3">
-            <label for="address" class="form-label"><strong>Address</strong></label>
-            <input type="text" [(ngModel)]="studentObj.address" class="form-control" id="address" name="address" />
-          </div>
-  
-          <div class="mb-3 mt-3">
-            <label for="institute" class="form-label"><strong><span class="text-danger">*</span>Institute</strong></label>
-            <select [(ngModel)]="studentObj.institute" class="form-select" aria-label="Default select example">
-              <option selected>Select Institute</option>
-              <option value="1">One</option>
-              <option value="2">Two</option>
-              <option value="3">Three</option>
-            </select>
-          </div>
-  
-          <div class="mb-3 mt-3">
-            <label for="course" class="form-label"><strong><span class="text-danger">*</span>Course Title</strong></label>
-            <input type="text" [(ngModel)]="studentObj.courseTitle" class="form-control" id="course" name="course" />
+  <h2 class="text-center">Apply for a Student License</h2>
+</div>
+
+<div class="container p-5 border rounded">
+  <form #studentForm="ngForm" (ngSubmit)="onSaveStudent()">
+    <div class="row">
+      <div class="col-md-6">
+        <!-- First Name -->
+        <div class="mb-3 mt-3">
+          <label for="firstname" class="form-label">
+            <strong><span class="text-danger">*</span> First Name</strong>
+          </label>
+          <input type="text" [(ngModel)]="studentObj.firstName" class="form-control" id="firstname" name="firstname" required />
+          <div *ngIf="studentForm.submitted && !studentForm.controls['firstname'].valid" class="text-danger">
+            First Name is required.
           </div>
         </div>
-          <div class="col-md-6">
-          <div class="mb-3 mt-3">
-            <label for="lastname" class="form-label"><strong><span class="text-danger">*</span>Last Name</strong></label>
-            <input type="text" [(ngModel)]="studentObj.lastName" class="form-control" id="lastname" name="lastname" />
+
+        <!-- Email -->
+        <div class="mb-3 mt-3">
+          <label for="email" class="form-label">
+            <strong><span class="text-danger">*</span> Student Email</strong>
+          </label>
+          <input type="email" [(ngModel)]="studentObj.studentEmail" class="form-control" id="email" name="email" required />
+          <div *ngIf="studentForm.submitted && !studentForm.controls['email'].valid" class="text-danger">
+            Valid email is required.
           </div>
-  
-          <div class="mb-3 mt-3">
-            <label for="phone" class="form-label"><strong><span class="text-danger">*</span>Phone</strong></label>
-            <input type="text" [(ngModel)]="studentObj.phone" class="form-control" id="phone" name="phone" />
+        </div>
+
+        <!-- Address -->
+        <div class="mb-3 mt-3">
+          <label for="address" class="form-label"><strong>Address</strong></label>
+          <input type="text" [(ngModel)]="studentObj.address" class="form-control" id="address" name="address" />
+        </div>
+
+        <!-- Institute -->
+        <div class="mb-3 mt-3">
+          <label for="institute" class="form-label">
+            <strong><span class="text-danger">*</span> Institute</strong>
+          </label>
+          <select [(ngModel)]="studentObj.institute" class="form-select" id="institute" name="institute" required>
+            <option value="" disabled>Select Institute</option>
+            <option>Institute One</option>
+            <option>Institute Two</option>
+            <option>Institute Three</option>
+          </select>
+          <div *ngIf="studentForm.submitted && !studentForm.controls['institute'].valid" class="text-danger">
+            Institute is required.
           </div>
-  
-          <div class="mb-3 mt-3">
-            <label for="country" class="form-label"><strong><span class="text-danger">*</span>Country</strong></label>
-            <select [(ngModel)]="studentObj.country" class="form-select" aria-label="Default select example">
-              <option selected>Select Country</option>
-              <option value="1">One</option>
-              <option value="2">Two</option>
-              <option value="3">Three</option>
-            </select>
-          </div>
-  
-          <div class="mb-3 mt-3">
-            <label for="intake" class="form-label"><strong><span class="text-danger">*</span>Intake</strong></label>
-            <select [(ngModel)]="studentObj.intake" class="form-select" aria-label="Default select example">
-              <option selected>Select Intake</option>
-              <option value="1">One</option>
-              <option value="2">Two</option>
-              <option value="3">Three</option>
-            </select>
-          </div>
-  
-          <div class="mb-3 mt-3">
-            <label for="formFile" class="form-label">
-              <strong><span class="text-danger">*</span>Student ID Card.</strong> Only accepting jpg/png/jpeg under 10MB.
-            </label>
-            <input class="form-control btn-primary" type="file" id="formFile" />
+        </div>
+
+        <!-- Course Title -->
+        <div class="mb-3 mt-3">
+          <label for="course" class="form-label">
+            <strong><span class="text-danger">*</span> Course Title</strong>
+          </label>
+          <input type="text" [(ngModel)]="studentObj.courseTitle" class="form-control" id="course" name="course" required />
+          <div *ngIf="studentForm.submitted && !studentForm.controls['course'].valid" class="text-danger">
+            Course title is required.
           </div>
         </div>
       </div>
-  
-      <div class="row">
-        <div class="col-12 text-center mt-1">
-          <button type="submit" (click)="onSaveStudent()" class="btn btn-primary m-4">Submit</button>
-          <button type="submit" class="btn btn-secondary m-4">Cancel</button>
+
+      <div class="col-md-6">
+        <!-- Last Name -->
+        <div class="mb-3 mt-3">
+          <label for="lastname" class="form-label">
+            <strong><span class="text-danger">*</span> Last Name</strong>
+          </label>
+          <input type="text" [(ngModel)]="studentObj.lastName" class="form-control" id="lastname" name="lastname" required />
+          <div *ngIf="studentForm.submitted && !studentForm.controls['lastname'].valid" class="text-danger">
+            Last Name is required.
+          </div>
+        </div>
+
+        <!-- Phone -->
+        <div class="mb-3 mt-3">
+          <label for="phone" class="form-label">
+            <strong><span class="text-danger">*</span> Phone</strong>
+          </label>
+          <input type="text" [(ngModel)]="studentObj.phone" class="form-control" id="phone" name="phone" required />
+          <div *ngIf="studentForm.submitted && !studentForm.controls['phone'].valid" class="text-danger">
+            Phone number is required.
+          </div>
+        </div>
+
+        <!-- Country -->
+        <div class="mb-3 mt-3">
+          <label for="country" class="form-label">
+            <strong><span class="text-danger">*</span> Country</strong>
+          </label>
+          <select [(ngModel)]="studentObj.country" class="form-select" id="country" name="country" required>
+            <option value="" disabled>Select Country</option>
+            <option>Country One</option>
+            <option>Country Two</option>
+            <option>Country Three</option>
+          </select>
+          <div *ngIf="studentForm.submitted && !studentForm.controls['country'].valid" class="text-danger">
+            Country is required.
+          </div>
+        </div>
+
+        <!-- Intake -->
+        <div class="mb-3 mt-3">
+          <label for="intake" class="form-label">
+            <strong><span class="text-danger">*</span> Intake</strong>
+          </label>
+          <select [(ngModel)]="studentObj.intake" class="form-select" id="intake" name="intake" required>
+            <option value="" disabled>Select Intake</option>
+            <option>Intake One</option>
+            <option>Intake Two</option>
+            <option>Intake Three</option>
+          </select>
+          <div *ngIf="studentForm.submitted && !studentForm.controls['intake'].valid" class="text-danger">
+            Intake is required.
+          </div>
+        </div>
+
+        <!-- Student ID Card -->
+        <div class="mb-3 mt-3">
+          <label for="formFile" class="form-label">
+            <strong><span class="text-danger">*</span> Student ID Card.</strong> Only accepting jpg/png/jpeg under 10MB.
+          </label>
+          <input class="form-control" type="file" id="formFile" />
         </div>
       </div>
-    </form>
-  </div>
-  
+    </div>
+
+    <!-- Submit and Cancel Buttons -->
+    <div class="row">
+      <div class="col-12 text-center mt-1">
+        <button type="submit" class="btn btn-primary m-4" [disabled]="!studentForm.valid">Submit</button>
+        <button type="button" class="btn btn-secondary m-4" (click)="onCancel()">Cancel</button>
+      </div>
+    </div>
+  </form>
+</div>

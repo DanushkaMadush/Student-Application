@@ -3,11 +3,13 @@ import { FormsModule } from '@angular/forms';
 import { Student } from '../../../models/class/student';
 import { StudentService } from '../../../services/student.service';
 import { APIResponseModel } from '../../../models/response';
+import { HttpClient } from '@angular/common/http';
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-student',
   standalone: true,
-  imports: [FormsModule],
+  imports: [FormsModule , CommonModule],
   templateUrl: './student.component.html',
   styleUrl: './student.component.css'
 })
@@ -16,6 +18,8 @@ export class StudentComponent implements OnInit {
   studentList : Student[] = [];
   studentService = inject(StudentService)
 
+  http = inject(HttpClient);
+
   ngOnInit(): void {
     
   }
@@ -23,14 +27,27 @@ export class StudentComponent implements OnInit {
 
 
   onSaveStudent() {
-    debugger;
-    this.studentService.addStudent(this.studentObj).subscribe((res:APIResponseModel) => {
-      if(res.result) {
-        alert("Student created success")
-      } else {
-        alert(res.message)
-      }
-    })
+    if (this.studentObj.firstName && this.studentObj.lastName && this.studentObj.studentEmail && this.studentObj.phone) {
+      this.http.post("https://localhost:7244/api/Student", this.studentObj)
+        .subscribe({
+          next: (response) => {
+            console.log('Student saved successfully:', response);
+          },
+          error: (error) => {
+            console.error('Error saving student:', error);
+          }
+        });
+    } else {
+      alert('Please fill all the required fields.');
+    }
+  }
+
+  // Handle form cancellation
+  onCancel() {
+    if (confirm('Are you sure you want to cancel? Your changes will be lost.')) {
+      
+      
+    }
   }
 
 }

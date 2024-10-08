@@ -2,7 +2,7 @@ export class Student {
     studentID : number;
     firstName : string;
     lastName :string;
-    email : string;
+    studentEmail : string;
     phone : string;
     address : string;
     country : string;
@@ -17,7 +17,7 @@ export class Student {
     this.studentID = 0;
     this.firstName = '';
     this.lastName = '';
-    this.email = '';
+    this.studentEmail = '';
     this.phone = '';
     this.address = '';
     this.country = '';

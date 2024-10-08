@@ -17,7 +17,7 @@ export class StudentService {
   }
 
   addStudent (obj : Student):Observable<APIResponseModel> {
-    return this.http.post<APIResponseModel>(environment.API_URL + "Student" , obj);
+    return this.http.post<APIResponseModel>("https://localhost:7244/api/Student" , obj);
   }
 
 }
