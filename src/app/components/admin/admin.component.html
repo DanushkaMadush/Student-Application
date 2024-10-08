@@ -9,6 +9,12 @@
     <table class="table table-bordered">
       <thead class="text-center">
         <tr class="table-primary">
+          <th>Name</th>
+          <th>Email</th>
+          <th>Phone Number</th>
+          <th>Address</th>
+          <th>Country</th>
+          <th>Institute</th>
           <th>Intake</th>
           <th>Course Title</th>
           <th>Student ID Card</th>
@@ -20,6 +26,12 @@
       </thead>
       <tbody>
         <tr *ngFor="let student of studentList">
+          <td>{{student.firstName}}+" "+{{student.lastName}}</td>
+          <td>{{student.studentEmail}}</td>
+          <td>{{student.phone}}</td>
+          <td>{{student.address}}</td>
+          <td>{{student.country}}</td>
+          <td>{{student.institute}}</td>
           <td>{{ student.intake }}</td>
           <td>{{ student.courseTitle }}</td>
           <td class="text-center"><a href=""><mat-icon>download</mat-icon></a></td>

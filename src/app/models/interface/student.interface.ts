@@ -2,7 +2,7 @@ export interface IStudent {
     studentID : number;
     firstName : string;
     lastName :string;
-    email : string;
+    studentEmail : string;
     phone : string;
     address : string;
     country : string;
