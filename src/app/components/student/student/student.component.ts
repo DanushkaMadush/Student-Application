@@ -1,8 +1,7 @@
 import { Component , inject, OnInit } from '@angular/core';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, NgForm } from '@angular/forms';
 import { Student } from '../../../models/class/student';
 import { StudentService } from '../../../services/student.service';
-import { APIResponseModel } from '../../../models/response';
 import { HttpClient } from '@angular/common/http';
 import { CommonModule } from '@angular/common';
 
@@ -43,10 +42,9 @@ export class StudentComponent implements OnInit {
   }
 
   // Handle form cancellation
-  onCancel() {
-    if (confirm('Are you sure you want to cancel? Your changes will be lost.')) {
-      
-      
+  onCancel(form : NgForm) {
+    if (confirm("Are you sure?")){
+      form.resetForm();
     }
   }
 
