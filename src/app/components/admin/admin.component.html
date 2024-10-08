@@ -40,8 +40,8 @@
           <td>{{student.expiryDate}}</td>
           <td class="text-center">
             <a href=""><mat-icon>edit</mat-icon></a>
-            <a href=""><mat-icon>done</mat-icon></a>
-            <a href=""><mat-icon>clear</mat-icon></a>
+            <a href="/admin" (click)="approveLicense(student)"><mat-icon>done</mat-icon></a>
+            <a href="/admin" (click)="rejectLicense(student)"><mat-icon>clear</mat-icon></a>
           </td>
         </tr>
       </tbody>
