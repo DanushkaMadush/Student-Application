@@ -16,6 +16,8 @@ export class StudentComponent implements OnInit {
   studentObj : Student = new Student();
   studentList : Student[] = [];
   studentService = inject(StudentService)
+  successMessage : string = '';
+  errorMessage : string = '';
 
   http = inject(HttpClient);
 
@@ -31,18 +33,21 @@ export class StudentComponent implements OnInit {
           next: (response) => {
             console.log('Student saved successfully:', response);
             form.resetForm();
+            this.successMessage = 'Application submitted successfully!'
           },
           error: (error) => {
             console.error('Error saving student:', error);
+            this.errorMessage = 'Email exist!'
           }
         });
     }
   
-
   onCancel(form : NgForm) {
     if (confirm("Are you sure?")){
       form.resetForm();
     }
   }
+
+
 
 }

@@ -2,6 +2,14 @@
   <h2 class="text-center">Apply for a Student License</h2>
 </div>
 
+<div *ngIf="successMessage" class="alert alert-success text-center m-5">
+  {{successMessage}}
+</div>
+
+<div *ngIf="errorMessage" class="alert alert-danger text-center mt-3">
+  {{errorMessage}}
+</div>
+
 <div class="container p-5 border rounded">
   <form #studentForm="ngForm" (ngSubmit)="onSaveStudent(studentForm)">
     <div class="row">
@@ -136,3 +144,8 @@
     </div>
   </form>
 </div>
+
+
+
+
+
