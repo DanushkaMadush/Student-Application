@@ -9,6 +9,9 @@ export class Student {
     institute : string;
     intake : string;
     courseTitle : string;
+    license : string;
+    approval : string;
+    expiryDate : string;
 
     constructor () {
     this.studentID = 0;
@@ -21,5 +24,8 @@ export class Student {
     this.institute = '';
     this.intake = '';
     this.courseTitle = '';
+    this.license = '';
+    this.approval = '';
+    this.expiryDate = '';
     }
 }
