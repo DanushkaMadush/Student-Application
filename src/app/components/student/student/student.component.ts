@@ -20,11 +20,7 @@ export class StudentComponent implements OnInit {
     
   }
 
-  loadStudent () {
-    this.studentService.getAllStudents().subscribe((res:APIResponseModel) =>{
-      this.studentList = res.data;
-    })
-  }
+
 
   onSaveStudent() {
     debugger;
