@@ -1,9 +1,10 @@
 import { Component, inject, OnInit } from '@angular/core';
-import { FormsModule, NgForm, ReactiveFormsModule } from '@angular/forms';
+import { FormBuilder, FormGroup, FormsModule, NgForm, ReactiveFormsModule, Validators } from '@angular/forms';
 import { Student } from '../../../models/class/student';
 import { StudentService } from '../../../services/student.service';
 import { HttpClient } from '@angular/common/http';
 import { CommonModule } from '@angular/common';
+import { CustomvalidationService } from '../../../services/customvalidation.service';
 
 @Component({
   selector: 'app-student',
@@ -19,10 +20,23 @@ export class StudentComponent implements OnInit {
   successMessage: string = '';
   errorMessage: string = '';
   selectedFile: File | null = null;
-
+  studentForm! : FormGroup;
   http = inject(HttpClient);
 
-  ngOnInit(): void {}
+  constructor (private fb : FormBuilder , private customValidator : CustomvalidationService) {}
+
+  ngOnInit(): void {
+    this.studentForm = this.fb.group({
+      firstName : ['' , Validators.required],
+      lastName : ['' , Validators.required],
+      studentEmail : ['' , [Validators.required , this.customValidator.emailValidator()],],
+      phone : ['' , [Validators.required , this.customValidator.numberValidator()],],
+      country : ['' , Validators.required],
+      institute : ['' , Validators.required],
+      intake : ['' , Validators.required],
+      courseTitle : ['' , Validators.required],
+    });
+  }
 
   onSaveStudent(form: NgForm) {
     if (!this.selectedFile) {
