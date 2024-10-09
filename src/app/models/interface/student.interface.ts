@@ -12,4 +12,5 @@ export interface IStudent {
     license : string;
     approval : string;
     expiryDate : string;
+    filePath : string;
 }

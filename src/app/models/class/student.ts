@@ -12,6 +12,7 @@ export class Student {
     license : string;
     approval : string;
     expiryDate : string;
+    filePath : string;
 
     constructor () {
     this.studentID = 0;
@@ -27,5 +28,6 @@ export class Student {
     this.license = '';
     this.approval = '';
     this.expiryDate = '';
+    this.filePath = '';
     }
 }
