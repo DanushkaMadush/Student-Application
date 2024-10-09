@@ -130,7 +130,7 @@
           <label for="formFile" class="form-label">
             <strong><span class="text-danger">*</span> Student ID Card.</strong> Only accepting jpg/png/jpeg under 10MB.
           </label>
-          <input class="form-control" type="file" id="formFile" />
+          <input class="form-control" type="file" id="formFile" (change)="onFileSelected($event)"/>
         </div>
       </div>
     </div>
