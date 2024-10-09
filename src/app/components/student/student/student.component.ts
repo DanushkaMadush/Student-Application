@@ -29,8 +29,8 @@ export class StudentComponent implements OnInit {
     this.studentForm = this.fb.group({
       firstName : ['' , Validators.required],
       lastName : ['' , Validators.required],
-      studentEmail : ['' , [Validators.required , this.customValidator.emailValidator()],],
-      phone : ['' , [Validators.required , this.customValidator.numberValidator()],],
+      studentEmail : ['' , Validators.required],
+      phone : ['' , Validators.required],
       country : ['' , Validators.required],
       institute : ['' , Validators.required],
       intake : ['' , Validators.required],
@@ -39,6 +39,16 @@ export class StudentComponent implements OnInit {
   }
 
   onSaveStudent(form: NgForm) {
+
+    if (!this.isEmailValid(this.studentObj.studentEmail)) {
+      this.errorMessage = 'Valid email is required.';
+      return;
+    }
+
+    if (!this.isPhoneValid(this.studentObj.phone)) {
+      this.errorMessage = 'Valid phone number is required.';
+    }
+
     if (!this.selectedFile) {
       this.errorMessage = 'Please select a file before submitting.';
       return;
@@ -77,6 +87,7 @@ export class StudentComponent implements OnInit {
   onCancel(form: NgForm) {
     if (confirm('Are you sure?')) {
       form.resetForm();
+      this.errorMessage='';
     }
   }
 
@@ -86,4 +97,15 @@ export class StudentComponent implements OnInit {
       this.selectedFile = target.files[0];
     }
   }
+
+  isEmailValid(email: string): boolean {
+    const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+    return emailRegex.test(email);
+  }
+
+  isPhoneValid(phone : string): boolean {
+    const numberRegex = /^[0-9]+$/;
+    return numberRegex.test(phone);
+  }
+  
 }

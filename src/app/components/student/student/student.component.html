@@ -2,16 +2,16 @@
   <h2 class="text-center">Apply for a Student License</h2>
 </div>
 
-<div *ngIf="successMessage" class="alert alert-success text-center m-5">
+<div *ngIf="successMessage" class="alert alert-success text-center m-5 container">
   {{successMessage}}
 </div>
 
-<div *ngIf="errorMessage" class="alert alert-danger text-center mt-3">
+<div *ngIf="errorMessage" class="alert alert-danger text-center mt-3 container">
   {{errorMessage}}
 </div>
 
 <div class="container p-5 border rounded">
-  <form #studentForm="ngForm" (ngSubmit)="onSaveStudent(studentForm)">
+  <form #studentForm="ngForm" (ngSubmit)="onSaveStudent(studentForm)" #form="ngForm">
     <div class="row">
       <div class="col-md-6">
         <!-- First Name -->
@@ -30,9 +30,9 @@
           <label for="email" class="form-label">
             <strong><span class="text-danger">*</span> Student Email</strong>
           </label>
-          <input type="email" [(ngModel)]="studentObj.studentEmail" class="form-control" id="email" name="email" required #email="ngModel"/>
+          <input type="email" [(ngModel)]="studentObj.studentEmail" class="form-control" id="email" name="email" required  #email="ngModel"/>
           <div *ngIf="email.invalid && email.touched" class="text-danger">
-            Valid email is required.
+            <div *ngIf="email.errors?.['required']">Email is required.</div>
           </div>
         </div>
 
@@ -89,7 +89,8 @@
           </label>
           <input type="text" [(ngModel)]="studentObj.phone" class="form-control" id="phone" name="phone" required #phone="ngModel"/>
           <div *ngIf="phone.invalid && phone.touched" class="text-danger">
-            Phone number is required.
+            <div *ngIf="phone.errors?.['required']">Phone number is required.</div>
+            <div *ngIf="phone.errors?.['invalidNumber']">Please enter a valid phone number.</div>
           </div>
         </div>
 
