@@ -47,11 +47,15 @@ export class StudentComponent implements OnInit {
         console.log('Student saved successfully:', response);
         form.resetForm();
         this.successMessage = 'Application submitted successfully!';
+        this.errorMessage = '';
       },
       error: (error) => {
         console.error('Error saving student:', error);
-        this.errorMessage =
-          'There was an error submitting your application. Please try again.';
+        if (error.status === 400 && error.error === 'Email already exists.') {
+          this.errorMessage = 'This Email is already used. Please use a different email.'
+        } else {
+          this.errorMessage = 'Oops! Something went wrong. Please try again.';
+        }
       },
     });
   }
