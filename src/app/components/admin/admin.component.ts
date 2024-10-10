@@ -7,6 +7,7 @@ import { Student } from '../../models/class/student';
 import { StudentService } from '../../services/student.service';
 import { HttpClient } from '@angular/common/http';
 import { IStudent } from '../../models/interface/student.interface';
+import { debounceTime } from 'rxjs';
 
 @Component({
   selector: 'app-admin',
@@ -29,13 +30,14 @@ export class AdminComponent implements OnInit {
   isLoader: boolean = true;
   router: Router = new Router;
   http = inject(HttpClient);
+  searchTerm : string = '';
 
   ngOnInit(): void {
     this.getAllStudents();
   }
 
   getAllStudents() {
-    this.http.get<IStudent[]>('https://localhost:7244/api/Student').subscribe({
+    this.http.get<IStudent[]>('https://localhost:7244/api/Student/all').subscribe({
       next: (res) => {
         this.studentList = res;
         this.isLoader = false;
@@ -46,6 +48,20 @@ export class AdminComponent implements OnInit {
       },
     });
   }
+
+  getSearchStudents(searchTerm: string = '') {
+    this.http.get<IStudent[]>(`https://localhost:7244/api/Student/search?searchTerm=${searchTerm}`).subscribe({
+        next: (res) => {
+            console.log('search results:' , res);
+            this.studentList = res;
+            this.isLoader = false;
+        },
+        error: (error) => {
+            console.error('Error fetching students:', error);
+            this.isLoader = false;
+        },
+    });
+}
 
   approveLicense(student: IStudent): void {
     const updatedStudent: IStudent = { ...student, license : 'Active' ,approval: 'Approved' , expiryDate : '2025-03-25' };
