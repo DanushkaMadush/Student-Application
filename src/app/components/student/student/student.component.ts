@@ -5,11 +5,12 @@ import { StudentService } from '../../../services/student.service';
 import { HttpClient } from '@angular/common/http';
 import { CommonModule } from '@angular/common';
 import { CustomvalidationService } from '../../../services/customvalidation.service';
+import { RouterModule } from '@angular/router';
 
 @Component({
   selector: 'app-student',
   standalone: true,
-  imports: [FormsModule, CommonModule, ReactiveFormsModule],
+  imports: [FormsModule, CommonModule, ReactiveFormsModule , RouterModule],
   templateUrl: './student.component.html',
   styleUrl: './student.component.css',
 })

@@ -1,5 +1,5 @@
 import { Component, inject, OnInit } from '@angular/core';
-import { RouterLink, RouterOutlet , Router } from '@angular/router';
+import { RouterLink, RouterOutlet , Router, RouterModule } from '@angular/router';
 import { StudentComponent } from '../student/student/student.component';
 import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
@@ -16,6 +16,7 @@ import { MatIconModule } from '@angular/material/icon';
     RouterOutlet,
     StudentComponent,
     RouterLink,
+    RouterModule,
     FormsModule,
     CommonModule,
     MatIconModule,
