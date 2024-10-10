@@ -1,5 +1,5 @@
 import { Component, inject, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, FormsModule, NgForm, ReactiveFormsModule, Validators } from '@angular/forms';
+import { FormBuilder, FormGroup, FormsModule, NgForm, ReactiveFormsModule, Validators , AbstractControl , ValidatorFn, FormControl } from '@angular/forms';
 import { Student } from '../../../models/class/student';
 import { StudentService } from '../../../services/student.service';
 import { HttpClient } from '@angular/common/http';
@@ -22,8 +22,14 @@ export class StudentComponent implements OnInit {
   selectedFile: File | null = null;
   studentForm! : FormGroup;
   http = inject(HttpClient);
+  phoneControl: FormControl;
 
-  constructor (private fb : FormBuilder , private customValidator : CustomvalidationService) {}
+  constructor (private fb : FormBuilder , private customValidator : CustomvalidationService) {
+    this.phoneControl = new FormControl('', [
+      this.customValidator.requiredValidator(),
+      this.customValidator.phoneValidator()
+    ]);
+  }
 
   ngOnInit(): void {
     this.studentForm = this.fb.group({
@@ -39,15 +45,6 @@ export class StudentComponent implements OnInit {
   }
 
   onSaveStudent(form: NgForm) {
-
-    if (!this.isEmailValid(this.studentObj.studentEmail)) {
-      this.errorMessage = 'Valid email is required.';
-      return;
-    }
-
-    if (!this.isPhoneValid(this.studentObj.phone)) {
-      this.errorMessage = 'Valid phone number is required.';
-    }
 
     if (!this.selectedFile) {
       this.errorMessage = 'Please select a file before submitting.';
@@ -98,14 +95,5 @@ export class StudentComponent implements OnInit {
     }
   }
 
-  isEmailValid(email: string): boolean {
-    const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
-    return emailRegex.test(email);
-  }
-
-  isPhoneValid(phone : string): boolean {
-    const numberRegex = /^[0-9]+$/;
-    return numberRegex.test(phone);
-  }
-  
 }
+
