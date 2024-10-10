@@ -31,6 +31,10 @@ export class AdminComponent implements OnInit {
   router: Router = new Router;
   http = inject(HttpClient);
   searchTerm : string = '';
+  selectedApproval: string = '';
+  selectedCountry: string = '';
+  selectedInstitute: string = '';
+  selectedIntake: string = '';
 
   ngOnInit(): void {
     this.getAllStudents();
@@ -52,7 +56,6 @@ export class AdminComponent implements OnInit {
   getSearchStudents(searchTerm: string = '') {
     this.http.get<IStudent[]>(`https://localhost:7244/api/Student/search?searchTerm=${searchTerm}`).subscribe({
         next: (res) => {
-            console.log('search results:' , res);
             this.studentList = res;
             this.isLoader = false;
         },
@@ -156,6 +159,46 @@ export class AdminComponent implements OnInit {
 
   cancelEdit(student : IStudent) {
     student.isEditing = false;
+  }
+
+  applyFilters() {
+    this.getFilteredStudents(this.selectedApproval, this.selectedCountry, this.selectedInstitute, this.selectedIntake);
+  }
+
+  resetFilters() {
+    this.selectedApproval = '';
+    this.selectedCountry = '';
+    this.selectedInstitute = '';
+    this.selectedIntake = '';
+    this.getAllStudents();
+  }
+
+  getFilteredStudents(approval?: string, country?: string, institute?: string, intake?: string) {
+    let query = `https://localhost:7244/api/Student/filterStudent?`;
+
+    if (approval) {
+      query += `approval=${approval}&`;
+    }
+    if (country) {
+      query += `country=${country}&`;
+    }
+    if (institute) {
+      query += `institute=${institute}&`;
+    }
+    if (intake) {
+      query += `intake=${intake}&`;
+    }
+
+    query = query.slice(0, -1);
+
+    this.http.get<IStudent[]>(query).subscribe({
+      next: (res) => {
+        this.studentList = res;
+      },
+      error: (error) => {
+        console.error('Error fetching filtered students:', error);
+      },
+    });
   }
 
 }

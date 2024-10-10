@@ -15,12 +15,18 @@
     <div class="spinner-border text-primary text-center"></div>
   </div>
   } @else {
-  <div class="container mt-5">
+  <div class="container">
 
     <div class="row m-5 justify-content-end" >
+      <a href="" data-bs-toggle="offcanvas" data-bs-target="#offcanvasRight" aria-controls="offcanvasRight"><i class="bi bi-filter h1"></i></a>
       <div class="input-group" style="width: 350px;">
         <input type="search" class="form-control rounded" placeholder="Search" aria-label="Search" aria-describedby="search-addon" [(ngModel)]="searchTerm" (input)="getSearchStudents(searchTerm)"/>
         <button type="button" class="btn btn-outline-primary" data-mdb-ripple-init (click)="getSearchStudents(searchTerm)">search</button>
+      </div>
+    </div>
+
+    <div class="row m-5 justify-content-end" >
+      <div class="row input-group">
       </div>
     </div>
 
@@ -161,4 +167,58 @@
     
   </div>
   }
+</div>
+
+<button class="btn btn-primary" type="button" >Toggle right offcanvas</button>
+
+<div class="offcanvas offcanvas-end" tabindex="-1" id="offcanvasRight" aria-labelledby="offcanvasRightLabel">
+  <div class="offcanvas-header">
+    <h5 class="offcanvas-title" id="offcanvasRightLabel">Filter</h5>
+    <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+  </div>
+  <div class="offcanvas-body">
+
+    <div class="p-1">
+      <label for="approvalSelect" class="form-label">Approval Status</label>
+      <select id="approvalSelect" class="form-select" [(ngModel)]="selectedApproval">
+        <option value="">Choose...</option>
+        <option value="Approved">Approved</option>
+        <option value="Rejected">Rejected</option>
+      </select>
+    </div>
+
+    <div class="p-1">
+      <label for="countrySelect" class="form-label">Country</label>
+      <select id="countrySelect" class="form-select" [(ngModel)]="selectedCountry">
+        <option value="">Choose...</option>
+        <option value="Country One">Country One</option>
+        <option value="Country Two">Country Two</option>
+        <option value="Country Three">Country Three</option>
+      </select>
+    </div>
+
+    <div class="p-1">
+      <label for="instituteSelect" class="form-label">Institute</label>
+      <select id="instituteSelect" class="form-select" [(ngModel)]="selectedInstitute">
+        <option value="">Choose...</option>
+        <option value="Institute One">Institute One</option>
+        <option value="Institute Two">Institute Two</option>
+        <option value="Institute Three">Institute Three</option>
+      </select>
+    </div>
+
+    <div class="p-1 mb-5">
+      <label for="intakeSelect" class="form-label">Intake</label>
+      <select id="intakeSelect" class="form-select" [(ngModel)]="selectedIntake">
+        <option value="">Choose...</option>
+        <option value="Intake One">Intake One</option>
+        <option value="Intake Two">Intake Two</option>
+        <option value="Intake Three">Intake Three</option>
+      </select>
+    </div>
+
+    <div class="align-items-center"></div>
+    <button type="button" class="btn btn-primary m-2" (click)="applyFilters()">Apply</button>
+    <button type="button" class="btn btn-secondary m-2" (click)="resetFilters()">Cancel</button>
+  </div>
 </div>
