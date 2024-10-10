@@ -4,6 +4,11 @@ import { AdminComponent } from './components/admin/admin.component';
 
 export const routes: Routes = [
     {
+        path : '',
+        redirectTo : 'student',
+        pathMatch : 'full'
+    },
+    {
         path : 'student',
         component : StudentComponent
     },
