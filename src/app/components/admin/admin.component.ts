@@ -1,5 +1,5 @@
 import { Component, inject, OnInit } from '@angular/core';
-import { RouterLink, RouterOutlet , Router, RouterModule } from '@angular/router';
+import { RouterLink, RouterOutlet , Router, RouterModule , Routes } from '@angular/router';
 import { StudentComponent } from '../student/student/student.component';
 import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
@@ -7,7 +7,6 @@ import { Student } from '../../models/class/student';
 import { StudentService } from '../../services/student.service';
 import { HttpClient } from '@angular/common/http';
 import { IStudent } from '../../models/interface/student.interface';
-import { MatIconModule } from '@angular/material/icon';
 
 @Component({
   selector: 'app-admin',
