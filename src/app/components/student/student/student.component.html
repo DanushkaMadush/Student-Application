@@ -30,10 +30,18 @@
           <label for="email" class="form-label">
             <strong><span class="text-danger">*</span> Student Email</strong>
           </label>
-          <input type="email" [(ngModel)]="studentObj.studentEmail" class="form-control" id="email" name="email" required  #email="ngModel"/>
-          <div *ngIf="email.invalid && email.touched" class="text-danger">
+          <input type="email" [(ngModel)]="studentObj.studentEmail" class="form-control" id="email" name="email" required email  #email="ngModel"/>
+          <!-- <div *ngIf="email.invalid && email.touched" class="text-danger">
             <div *ngIf="email.errors?.['required']">Email is required.</div>
-          </div>
+          </div> -->
+            <div class="text-danger" *ngIf="email.touched && email.invalid">
+              <div *ngIf="email?.errors?.['required']">
+                <span>Email is required.</span>
+              </div>
+              <div *ngIf="email?.errors?.['email']">
+                <span>Please enter a valid email.</span>
+              </div>
+            </div>
         </div>
 
         <!-- Address -->
@@ -87,10 +95,10 @@
           <label for="phone" class="form-label">
             <strong><span class="text-danger">*</span> Phone</strong>
           </label>
-          <input type="text" [(ngModel)]="studentObj.phone" class="form-control" id="phone" name="phone" required #phone="ngModel"/>
-          <div *ngIf="phone.invalid && phone.touched" class="text-danger">
-            <div *ngIf="phone.errors?.['required']">Phone number is required.</div>
-            <div *ngIf="phone.errors?.['invalidNumber']">Please enter a valid phone number.</div>
+          <input type="text" [(ngModel)]="studentObj.phone" class="form-control" id="phone" name="phone" required [formControl]="phoneControl" />
+          <div *ngIf="phoneControl.invalid && phoneControl.touched" class="text-danger">
+            <div *ngIf="phoneControl.errors?.['required']">Phone number is required.</div>
+            <div *ngIf="phoneControl.errors?.['invalidNumber']">Please enter a valid phone number with 10 digits.</div>
           </div>
         </div>
 

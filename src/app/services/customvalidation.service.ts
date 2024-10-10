@@ -12,5 +12,15 @@ export class CustomvalidationService {
     };
   }
 
+  phoneValidator(): ValidatorFn {
+    return (control: AbstractControl): { [key: string]: any } | null => {
+      if (!control.value) {
+        return null;
+      }
+      const valid = /^[0-9]{10}$/.test(control.value);
+      return valid ? null : { invalidNumber: true };
+    };
+  }
+
   constructor() { }
 }
