@@ -13,6 +13,7 @@ export class Student {
     approval : string;
     expiryDate : string;
     filePath : string;
+    isEditing : boolean;
 
     constructor () {
     this.studentID = 0;
@@ -29,5 +30,6 @@ export class Student {
     this.approval = '';
     this.expiryDate = '';
     this.filePath = '';
+    this.isEditing = false;
     }
 }

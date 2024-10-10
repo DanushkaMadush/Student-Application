@@ -19,7 +19,6 @@ import { MatIconModule } from '@angular/material/icon';
     RouterModule,
     FormsModule,
     CommonModule,
-    MatIconModule,
   ],
   templateUrl: './admin.component.html',
   styleUrls: ['./admin.component.css'],
@@ -112,8 +111,36 @@ export class AdminComponent implements OnInit {
       console.error('Error downloading the file:', error);
     });
   }
+
+  editStudent(student : IStudent) {
+    (student as Student).isEditing = true;
+  }
+
+  updateStudent(student: IStudent): void {
+    const updatedStudent: IStudent = { ...student , license : student.license , approval:student.approval , expiryDate:student.expiryDate };
   
-  
-  
+    this.http.put<IStudent>(
+      `https://localhost:7244/api/Student/${student.studentID}`,
+      updatedStudent
+    ).subscribe(
+      (response) => {
+        console.log('Student updated successfully:', response);
+        const index = this.studentList.findIndex(
+          (s) => s.studentID === student.studentID
+        );
+        if (index !== -1) {
+          this.studentList[index] = response;
+        }
+        this.getAllStudents();
+      },
+      (error) => {
+        console.error('Error updating student:', error);
+      }
+    );
+  }
+
+  cancelEdit(student : IStudent) {
+    student.isEditing = false;
+  }
 
 }

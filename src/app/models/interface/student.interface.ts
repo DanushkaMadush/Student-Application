@@ -13,4 +13,5 @@ export interface IStudent {
     approval : string;
     expiryDate : string;
     filePath : string;
+    isEditing: boolean;
 }

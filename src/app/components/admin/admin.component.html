@@ -1,58 +1,156 @@
 <nav class="navbar navbar-dark bg-light">
   <form class="container-fluid justify-content-end">
-    <button class="btn btn-outline-success me-2 m-3" type="button" [routerLink]="['/student']">Logout</button>
+    <button
+      class="btn btn-outline-success me-2 m-3"
+      type="button"
+      [routerLink]="['/student']"
+    >
+      Logout
+    </button>
   </form>
 </nav>
 <div class="row">
-    @if (isLoader == true){
-        <div class="d-flex justify-content-center align-items-center vh-100">
-            <div class="spinner-border text-primary text-center"></div>
-        </div>
-    } @else {
-<div class="container mt-5">
-  <div class="row m-5">
-    <table class="table table-bordered">
-      <thead class="text-center">
-        <tr class="table-primary">
-          <th>Full Name</th>
-          <th>Email</th>
-          <th>Phone Number</th>
-          <th>Address</th>
-          <th>Country</th>
-          <th>Institute</th>
-          <th>Intake</th>
-          <th>Course Title</th>
-          <th>Student ID Card</th>
-          <th>License Status</th>
-          <th>Approval Status</th>
-          <th>License Expiry Date</th>
-          <th>Action</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr *ngFor="let student of studentList">
-          <td>{{student.firstName}} {{student.lastName}}</td>
-          <td>{{student.studentEmail}}</td>
-          <td>{{student.phone}}</td>
-          <td>{{student.address}}</td>
-          <td>{{student.country}}</td>
-          <td>{{student.institute}}</td>
-          <td>{{ student.intake }}</td>
-          <td>{{ student.courseTitle }}</td>
-          <td class="text-center"><a [href]="'https://localhost:7244/api/Student/download/' + student.studentID" download><mat-icon>download</mat-icon></a></td>
-          <td>{{student.license}}</td>
-          <td>{{student.approval}}</td>
-          <td>{{student.expiryDate}}</td>
-          <td class="text-center">
-            <a href=""><mat-icon>edit</mat-icon></a>
-            <a href="/admin" (click)="approveLicense(student)"><mat-icon>done</mat-icon></a>
-            <a href="/admin" (click)="rejectLicense(student)"><mat-icon>clear</mat-icon></a>
-          </td>
-        </tr>
-      </tbody>
-    </table>
+  @if (isLoader == true){
+  <div class="d-flex justify-content-center align-items-center vh-100">
+    <div class="spinner-border text-primary text-center"></div>
   </div>
-</div>
-}
+  } @else {
+  <div class="container mt-5">
+    <div class="row m-5">
+      <table class="table table-bordered">
+        <thead class="text-center">
+          <tr class="table-primary">
+            <th>First Name</th>
+            <th>Last Name</th>
+            <th>Email</th>
+            <th>Phone Number</th>
+            <th>Address</th>
+            <th>Country</th>
+            <th>Institute</th>
+            <th>Intake</th>
+            <th>Course Title</th>
+            <th>Student ID Card</th>
+            <th>License Status</th>
+            <th>Approval Status</th>
+            <th>License Expiry Date</th>
+            <th>Action</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let student of studentList">
+            <td *ngIf="!student.isEditing">{{ student.firstName }}</td>
+            <td *ngIf="student.isEditing">
+              <input type="text" [(ngModel)]="student.firstName" />
+            </td>
 
+            <td *ngIf="!student.isEditing">{{ student.lastName }}</td>
+            <td *ngIf="student.isEditing">
+              <input type="text" [(ngModel)]="student.lastName" />
+            </td>
+
+            <td *ngIf="!student.isEditing">{{ student.studentEmail }}</td>
+            <td *ngIf="student.isEditing">
+              <input type="email" [(ngModel)]="student.studentEmail" />
+            </td>
+
+            <td *ngIf="!student.isEditing">{{ student.phone }}</td>
+            <td *ngIf="student.isEditing">
+              <input type="text" [(ngModel)]="student.phone" />
+            </td>
+
+            <td *ngIf="!student.isEditing">{{ student.address }}</td>
+            <td *ngIf="student.isEditing">
+              <input [(ngModel)]="student.address" />
+            </td>
+
+            <td *ngIf="!student.isEditing">{{ student.country }}</td>
+            <td *ngIf="student.isEditing">
+              <select class="form-select" id="country" name="country">
+                <option value="" disabled>Select Country</option>
+                <option>Country One</option>
+                <option>Country Two</option>
+                <option>Country Three</option>
+              </select>
+            </td>
+
+            <td *ngIf="!student.isEditing">{{ student.institute }}</td>
+            <td *ngIf="student.isEditing">
+              <select
+                class="form-select"
+                id="institute"
+                name="institute"
+                required
+              >
+                <option value="" disabled>Select Institute</option>
+                <option>Institute One</option>
+                <option>Institute Two</option>
+                <option>Institute Three</option>
+              </select>
+            </td>
+
+            <td *ngIf="!student.isEditing">{{ student.intake }}</td>
+            <td *ngIf="student.isEditing">
+              <select class="form-select" id="intake" name="intake" required>
+                <option>Intake One</option>
+                <option>Intake Two</option>
+                <option>Intake Three</option>
+              </select>
+            </td>
+
+            <td *ngIf="!student.isEditing">{{ student.courseTitle }}</td>
+            <td *ngIf="student.isEditing">
+              <input [(ngModel)]="student.courseTitle" />
+            </td>
+
+            <td *ngIf="!student.isEditing" class="text-center">
+              <a
+                [href]="
+                  'https://localhost:7244/api/Student/download/' +
+                  student.studentID
+                "
+                download
+                ><i class="bi bi-download"></i
+              ></a>
+            </td>
+            <td *ngIf="student.isEditing">
+              <input type="file" [(ngModel)]="student.filePath" />
+            </td>
+
+            <td *ngIf="!student.isEditing">{{ student.license }}</td>
+            <td *ngIf="student.isEditing">
+              <select class="form-select" id="intake" name="intake" required>
+                <option>Active</option>
+                <option>Inactive</option>
+              </select>
+            </td>
+
+            <td *ngIf="!student.isEditing">{{ student.approval }}</td>
+            <td *ngIf="student.isEditing">
+              <select class="form-select" id="intake" name="intake" required>
+                <option>Approved</option>
+                <option>Rejected</option>
+              </select>
+            </td>
+
+            <td *ngIf="!student.isEditing">{{ student.expiryDate }}</td>
+            <td *ngIf="student.isEditing">
+              <input type="date" [(ngModel)]="student.expiryDate" />
+            </td>
+
+            <td class="text-center">
+              <a class="text-primary" (click)="editStudent(student)" *ngIf="!student.isEditing"><i class="bi bi-pencil-square p-1"></i></a>
+              <a href="/admin" (click)="approveLicense(student)" class="text-success" *ngIf="!student.isEditing" ><i class="bi bi-check-lg p-1"></i></a>
+              <a href="/admin" (click)="rejectLicense(student)" class="text-danger" *ngIf="!student.isEditing" ><i class="bi bi-x p-1"></i ></a>
+                <a class="text-success" (click)="updateStudent(student)" *ngIf="student.isEditing"><i class="bi bi-save p-1"></i></a>
+                <a class="text-danger" (click)="cancelEdit(student)" *ngIf="student.isEditing"><i class="bi bi-x p-1"></i></a>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+  <div class="container-fluid align-items-center p-5 m-5">
+    
+  </div>
+  }
 </div>
