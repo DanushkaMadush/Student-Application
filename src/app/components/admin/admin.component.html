@@ -117,14 +117,7 @@
             </td>
 
             <td *ngIf="!student.isEditing" class="text-center">
-              <a
-                [href]="
-                  'https://localhost:7244/api/Student/download/' +
-                  student.studentID
-                "
-                download
-                ><i class="bi bi-download"></i
-              ></a>
+              <a (click)="downloadFile(student.filePath)"><i class="bi bi-download text-primary" style="cursor: pointer;"></i></a>
             </td>
             <td *ngIf="student.isEditing">
               <input type="file" [(ngModel)]="student.filePath" />
@@ -152,7 +145,7 @@
             </td>
 
             <td class="text-center">
-              <a class="text-primary" (click)="editStudent(student)" *ngIf="!student.isEditing"><i class="bi bi-pencil-square p-1"></i></a>
+              <a class="text-primary" (click)="editStudent(student)" *ngIf="!student.isEditing"><i class="bi bi-pencil-square p-1" style="cursor: pointer;"></i></a>
               <a href="/admin" (click)="approveLicense(student)" class="text-success" *ngIf="!student.isEditing" ><i class="bi bi-check-lg p-1"></i></a>
               <a href="/admin" (click)="rejectLicense(student)" class="text-danger" *ngIf="!student.isEditing" ><i class="bi bi-x p-1"></i ></a>
                 <a class="text-success" (click)="updateStudent(student)" *ngIf="student.isEditing"><i class="bi bi-save p-1"></i></a>

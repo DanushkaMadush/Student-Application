@@ -115,16 +115,25 @@ export class AdminComponent implements OnInit {
       );
   }
 
-  downloadFile(studentID: number, fileName: string): void {
-    this.http.get(`https://localhost:7244/api/Student/download/${studentID}`, {
-      responseType: 'blob'  // Specify the response type as a Blob (binary large object)
+  downloadFile(filePath: string): void {
+
+    const fileName = filePath.split('\\').pop();
+    if (!fileName) {
+      console.error('File name could not be extracted from the file path.');
+      return; 
+    }
+
+    this.http.get(`https://localhost:7244/api/Student/download/${fileName}`, {
+      responseType: 'blob'  
     }).subscribe((response: Blob) => {
-      const url = window.URL.createObjectURL(response); // Create a URL for the Blob object
-      const a = document.createElement('a');  // Create an anchor element
+      const url = window.URL.createObjectURL(response); 
+      const a = document.createElement('a'); 
       a.href = url;
-      a.download = fileName;  // Set the file name
-      a.click();  // Trigger the download
-      window.URL.revokeObjectURL(url);  // Clean up the URL object
+      a.download = fileName; 
+      document.body.appendChild(a); 
+      a.click(); 
+      document.body.removeChild(a); 
+      window.URL.revokeObjectURL(url); 
     }, error => {
       console.error('Error downloading the file:', error);
     });
