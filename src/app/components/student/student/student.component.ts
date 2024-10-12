@@ -6,6 +6,7 @@ import { HttpClient } from '@angular/common/http';
 import { CommonModule } from '@angular/common';
 import { CustomvalidationService } from '../../../services/customvalidation.service';
 import { RouterModule } from '@angular/router';
+import { environment } from '../../../../environments/environment';
 
 @Component({
   selector: 'app-student',
@@ -64,7 +65,7 @@ export class StudentComponent implements OnInit {
     formData.append('courseTitle', this.studentObj.courseTitle);
     formData.append('file', this.selectedFile); // File
 
-    this.http.post('https://localhost:7244/api/Student', formData).subscribe({
+    this.http.post(`${environment.API_URL}Student`, formData).subscribe({
       next: (response) => {
         console.log('Student saved successfully:', response);
         form.resetForm();

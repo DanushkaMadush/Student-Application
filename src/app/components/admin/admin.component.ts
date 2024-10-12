@@ -8,6 +8,7 @@ import { StudentService } from '../../services/student.service';
 import { HttpClient } from '@angular/common/http';
 import { IStudent } from '../../models/interface/student.interface';
 import { debounceTime } from 'rxjs';
+import { environment } from '../../../environments/environment.development';
 
 @Component({
   selector: 'app-admin',
@@ -41,7 +42,7 @@ export class AdminComponent implements OnInit {
   }
 
   getAllStudents() {
-    this.http.get<IStudent[]>('https://localhost:7244/api/Student/all').subscribe({
+    this.http.get<IStudent[]>(`${environment.API_URL}Student/all`).subscribe({
       next: (res) => {
         this.studentList = res;
         this.isLoader = false;
@@ -54,7 +55,7 @@ export class AdminComponent implements OnInit {
   }
 
   getSearchStudents(searchTerm: string = '') {
-    this.http.get<IStudent[]>(`https://localhost:7244/api/Student/search?searchTerm=${searchTerm}`).subscribe({
+    this.http.get<IStudent[]>(`${environment.API_URL}Student/search?searchTerm=${searchTerm}`).subscribe({
         next: (res) => {
             this.studentList = res;
             this.isLoader = false;
@@ -70,7 +71,7 @@ export class AdminComponent implements OnInit {
     const updatedStudent: IStudent = { ...student, license : 'Active' ,approval: 'Approved' , expiryDate : '2025-03-25' };
     this.http
       .put<IStudent>(
-        `https://localhost:7244/api/Student/${student.studentID}`,
+        `${environment.API_URL}Student/${student.studentID}`,
         updatedStudent
       )
       .subscribe(
@@ -95,7 +96,7 @@ export class AdminComponent implements OnInit {
 
     this.http
       .put<IStudent>(
-        `https://localhost:7244/api/Student/${student.studentID}`,
+        `${environment.API_URL}Student/${student.studentID}`,
         updatedStudent
       )
       .subscribe(
@@ -123,7 +124,7 @@ export class AdminComponent implements OnInit {
       return; 
     }
 
-    this.http.get(`https://localhost:7244/api/Student/download/${fileName}`, {
+    this.http.get(`${environment.API_URL}Student/download/${fileName}`, {
       responseType: 'blob'  
     }).subscribe((response: Blob) => {
       const url = window.URL.createObjectURL(response); 
@@ -147,7 +148,7 @@ export class AdminComponent implements OnInit {
     const updatedStudent: IStudent = { ...student , license : student.license , approval:student.approval , expiryDate:student.expiryDate };
   
     this.http.put<IStudent>(
-      `https://localhost:7244/api/Student/${student.studentID}`,
+      `${environment.API_URL}Student/${student.studentID}`,
       updatedStudent
     ).subscribe(
       (response) => {
@@ -183,7 +184,7 @@ export class AdminComponent implements OnInit {
   }
 
   getFilteredStudents(approval?: string, country?: string, institute?: string, intake?: string) {
-    let query = `https://localhost:7244/api/Student/filterStudent?`;
+    let query = `${environment.API_URL}Student/filterStudent?`;
 
     if (approval) {
       query += `approval=${approval}&`;
